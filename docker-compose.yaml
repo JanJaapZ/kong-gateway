@@ -8,7 +8,7 @@ services:
       POSTGRES_DB: kong
       POSTGRES_PASSWORD: KongPassword!
     volumes:
-      - C:/temp/postgres:/var/lib/postgresql/data
+      - \usr\temp:/var/lib/postgresql/data
     networks:
       - kong-network
 

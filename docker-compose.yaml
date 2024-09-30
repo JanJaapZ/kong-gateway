@@ -8,9 +8,12 @@ services:
       POSTGRES_DB: kong
       POSTGRES_PASSWORD: KongPassword!
     volumes:
-      - /Users/dalabbasy/Documents/kong:/var/lib/postgresql/data
+      # - /Users/<username>/Documents/kong:/var/lib/postgresql/data # place you directory here in Unix format
+      - C:\temp\postgres:/var/lib/postgresql/data # place you directory here in windows format
     networks:
       - kong-network
+
+# This migration serivice is only needed when the database needs to be bootstrapped (so when it's empty)
 
   # kong-migrations:
   #   image: kong:3.8
@@ -45,13 +48,11 @@ services:
       KONG_ADMIN_ACCESS_LOG: /dev/stdout
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_ADMIN_ERROR_LOG: /dev/stderr
-      KONG_ADMIN_LISTEN: 0.0.0.0:8010
+      KONG_ADMIN_LISTEN: 0.0.0.0:8010       # Kong Admin API
       KONG_ADMIN_GUI_LISTEN: 0.0.0.0:8002   # Kong Manager
     ports:
       - "8000:8000"  # Kong Gateway port
-      - "8443:8443"  # Kong Gateway port SSL
       - "8010:8010"  # Kong Admin API
-      - "8444:8444"  # Kong Admin API SSL
       - "8002:8002"  # Kong Manager port
     networks:
       - kong-network

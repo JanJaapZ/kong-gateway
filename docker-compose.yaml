@@ -57,6 +57,13 @@ services:
     networks:
       - kong-network
 
+  deck:
+    image: deck:1.0
+    depends_on:
+      - kong    
+    networks:
+      - kong-network
+
 networks:
   kong-network:
     driver: bridge

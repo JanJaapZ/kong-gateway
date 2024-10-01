@@ -13,4 +13,15 @@ When logged into the container run ```psql -U kong_user kong``` and then ```\dt`
 After bootstrap has been completed, comment out the kong-migrations service and enable Kong Gateway. Kong can now start by running ```docker compose up``` again.
 
 Once the gateway is running, you can visit Kong manager via your localhost on: http://localhost:8001. Kong manager is the UI interface that enables you to configure the gateway with all services, routes, plugins and other components you need to manage Kong.
-    
+
+
+## Getting started with decK
+An important concept when managing API GW is the everything-as-code principle. Kong also has the capability to manage it's config as code using a tool called decK. decK can export and import configurations of Kong.
+
+Attached in the deck_container folder is a Dockerfile you can use to build a container that has deck (amongst other things). ```CD``` into the folder and run ```docker build -t deck:1.0 .```
+
+The container will build and that run it via the docker compose file attached. 
+
+Once the container is running you can exec into it: ```docker exec -it $(docker ps -aqf "name=deck") /bin/bash``` once in the container, you can connect via the service names. E.g. to try ping the gateway (on the admin API) using: ```deck gateway ping --kong-addr http://kong:8010```
+
+Once connectivity is clear, you can start trying to getting the gateway config (deck dump) and edit it and synch it again (deck sync).
